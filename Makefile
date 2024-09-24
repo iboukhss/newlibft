@@ -1,17 +1,20 @@
 # Directories
 SRC_DIR        := src
 ARENA_DIR      := $(SRC_DIR)/arena
+VECTOR_DIR     := $(SRC_DIR)/vector
 INC_DIR        := include
 INT_DIR        := internal
 
 # Source files
 SRC_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c
 ARENA_FILES    := arena.c arena_str.c scratch.c
+VECTOR_FILES   := vector.c
 SRCS           := $(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
-                  $(addprefix $(ARENA_DIR)/, $(ARENA_FILES))
+                  $(addprefix $(ARENA_DIR)/, $(ARENA_FILES)) \
+                  $(addprefix $(VECTOR_DIR)/, $(VECTOR_FILES))
 
 # Header files
-INC_FILES      := libft.h arena.h
+INC_FILES      := libft.h arena.h vector.h
 INT_FILES      := 
 INCS           := $(addprefix $(INC_DIR)/, $(INC_FILES)) \
                   $(addprefix $(INT_DIR)/, $(INT_FILES))
