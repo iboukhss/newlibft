@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 22:13:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 02:59:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/24 03:55:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARENA_H
 # define ARENA_H
 
-# define ARENA_SIZE (1048576)	// 1 MB
+# define ARENA_SIZE 1048576	// 1 MB
 
 # include <stddef.h>
 
