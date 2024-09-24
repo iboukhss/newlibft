@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 23:20:05 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 02:54:22 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:10:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_memset(void *dst, int c, ptrdiff_t n)
 {
 	char	*dp;
 
-	dp = dst;
+	dp = (char *)dst;
 	while (n > 0)
 	{
 		*dp++ = (char)c;
