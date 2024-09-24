@@ -8,6 +8,7 @@ INT_DIR        := internal
 
 # Source files
 SRC_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c \
+                  ft_isdigit.c ft_isspace.c \
                   int_to_str.c uint_to_str.c
 ARENA_FILES    := arena.c arena_str.c scratch.c
 VECTOR_FILES   := vector.c

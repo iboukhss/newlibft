@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:34:25 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 18:51:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:11:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 void		*ft_memcpy(void *dst, const void *src, ptrdiff_t n);
 void		*ft_memset(void *dst, int c, ptrdiff_t n);
+
+int			ft_isdigit(int c);
+int			ft_isspace(int c);
 
 ptrdiff_t	ft_strlen(const char *s);
 
