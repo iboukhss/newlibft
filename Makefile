@@ -1,42 +1,51 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -MMD -g3 -fsanitize=address,undefined
+# Directories
+SRC_DIR        := src
+ARENA_DIR      := $(SRC_DIR)/arena
+INC_DIR        := include
+INT_DIR        := internal
 
-LIB_NAME = libft.a
+# Source files
+SRC_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c
+ARENA_FILES    := arena.c arena_str.c scratch.c
+SRCS           := $(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
+                  $(addprefix $(ARENA_DIR)/, $(ARENA_FILES))
 
-vpath %.c libft libft/arena
-vpath %.h include
+# Header files
+INC_FILES      := libft.h arena.h
+INT_FILES      := 
+INCS           := $(addprefix $(INC_DIR)/, $(INC_FILES)) \
+                  $(addprefix $(INT_DIR)/, $(INT_FILES))
 
-LIB_INCS = libft.h arena.h
+# Object and dependency files
+OBJS           := $(SRCS:.c=.o)
+DEPS           := $(OBJS:.o=.d)
 
-# Standard libc
-LIB_SRCS := ft_memcpy.c ft_memset.c
-LIB_SRCS += ft_strlen.c
+# Build configuration
+NAME           := libft.a
+CC             := clang
+CFLAGS         := -Wall -Wextra -Werror
+CFLAGS         += -MMD -g3 -fsanitize=address,undefined
+CFLAGS         += -I$(INC_DIR) -I$(INT_DIR)
 
-# Arena lib
-LIB_SRCS += arena.c scratch.c arena_str.c
+all: $(NAME)
 
-LIB_OBJS = $(LIB_SRCS:.c=.o)
-LIB_DEPS = $(LIB_OBJS:.o=.d)
-
-all: $(LIB_NAME)
-
-$(LIB_NAME): $(LIB_OBJS)
+$(NAME): $(OBJS)
 	ar rcs $@ $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-norm: $(LIB_INCS) $(LIB_SRCS)
-	-norminette $^
+norm:
+	-norminette $(SRCS) $(INCS)
 
 clean:
-	rm -f *.o *.d
+	rm -f $(OBJS) $(DEPS)
 
-fclean:
-	rm -f $(LIB_NAME)
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 
--include $(LIB_DEPS)
+-include $(DEPS)
 
 .PHONY: all norm clean fclean re
