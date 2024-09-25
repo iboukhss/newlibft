@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 22:12:59 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 02:58:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/25 17:17:15 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,26 @@ t_arena	*arena_new(ptrdiff_t size)
 // Newly allocated memory is zeroed out by default for convenience
 void	*arena_alloc(t_arena *a, ptrdiff_t size)
 {
-	char	*buf;
+	ptrdiff_t	align;
+	ptrdiff_t	extra;
+	ptrdiff_t	padding;
+	void		*mem;
 
-	if (a->pos + size > a->end)
+	align = sizeof(void *);
+	extra = (uintptr_t)a->pos % align;
+	if (extra == 0)
+		padding = 0;
+	else
+		padding = align - extra;
+	if (a->pos + padding + size > a->end)
 	{
 		write(STDERR_FILENO, "Error: Arena out of memory\n", 27);
 		exit(EXIT_FAILURE);
 	}
-	buf = a->pos;
-	ft_memset(buf, 0, size);
-	a->pos += size;
-	return (buf);
+	mem = a->pos + padding;
+	ft_memset(a->pos, 0, padding + size);
+	a->pos += padding + size;
+	return (mem);
 }
 
 void	arena_reset(t_arena *a)
