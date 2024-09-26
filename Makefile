@@ -9,9 +9,10 @@ INT_DIR        := internal
 # Source files
 SRC_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c \
                   ft_isdigit.c ft_isspace.c \
-                  int_to_str.c uint_to_str.c
+                  int_to_str.c uint_to_str.c \
+                  str_to_int.c
 ARENA_FILES    := arena.c arena_str.c scratch.c
-VECTOR_FILES   := vector.c
+VECTOR_FILES   := vector.c split_str.c strv_to_intv.c
 PRINTF_FILES   := ft_printf.c ft_dprintf.c ft_vdprintf.c \
                   append_chars.c append_ints.c pribuf.c
 

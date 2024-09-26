@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:34:25 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 19:11:54 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/26 09:52:39 by iboukhss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int			ft_vdprintf(int fd, const char *fmt, va_list ap);
 
 int			int_to_str(char *buf, intmax_t val, ptrdiff_t bufsize);
 int			uint_to_str(char *buf, uintmax_t val, int base, ptrdiff_t bufsize);
+
+int			str_to_int(int *out, const char *s);
 
 #endif
