@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 22:12:59 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/25 17:17:15 by iboukhss         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:19:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_arena	*arena_new(ptrdiff_t size)
 	return (a);
 }
 
-// Newly allocated memory is zeroed out by default for convenience
+// Allocated chunks are zeroed out by default for convenience
 void	*arena_alloc(t_arena *a, ptrdiff_t size)
 {
 	ptrdiff_t	align;
@@ -63,12 +63,7 @@ void	*arena_alloc(t_arena *a, ptrdiff_t size)
 	return (mem);
 }
 
-void	arena_reset(t_arena *a)
-{
-	a->pos = a->beg;
-}
-
-void	arena_free(t_arena *a)
+void	arena_release(t_arena *a)
 {
 	free(a->beg);
 	free(a);
