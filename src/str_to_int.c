@@ -6,7 +6,7 @@
 /*   By: iboukhss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 09:31:43 by iboukhss          #+#    #+#             */
-/*   Updated: 2024/09/26 09:57:15 by iboukhss         ###   ########.fr       */
+/*   Updated: 2024/09/29 00:53:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,48 @@
 #include <errno.h>
 #include <limits.h>
 
-static int	is_overflow(int n, int next_digit)
+static bool	is_overflow(int n, int digit)
 {
 	if (n < 0)
 	{
-		return (n < (INT_MIN + (next_digit - '0')) / 10);
+		return (n < (INT_MIN + digit) / 10);
 	}
 	else
 	{
-		return (n > (INT_MAX - (next_digit - '0')) / 10);
+		return (n > (INT_MAX - digit) / 10);
 	}
 }
 
-static int	handle_negative(int *out, const char *s)
-{
-	*out = 0;
-	while (ft_isdigit(*s))
-	{
-		if (is_overflow(*out, *s))
-			return (EOVERFLOW);
-		*out = *out * 10 - (*s - '0');
-		++s;
-	}
-	return (0);
-}
+// Note: I'm not sure if we should handle whitespaces with this function.
+// The assumption here is that str points to some digit or sign in a string.
+// If we pass an empty string the function returns EINVAL.
+// Leading whitespaces are not handled, as well as any non-digit characters
+// past the first one. That means `123abc` is considred a valid integer string
+// according to this function.
 
-static int	handle_positive(int *out, const char *s)
+int	str_to_int(int *out, const char *str)
 {
-	*out = 0;
-	while (ft_isdigit(*s))
-	{
-		if (is_overflow(*out, *s))
-			return (EOVERFLOW);
-		*out = *out * 10 + (*s - '0');
-		++s;
-	}
-	return (0);
-}
+	int	num;
+	int	sign;
+	int	digit;
 
-int	str_to_int(int *out, const char *s)
-{
-	const char	*sign;
-	int			err;
-
-	while (ft_isspace(*s))
-		++s;
-	sign = s;
-	if (*s == '-' || *s == '+')
-		++s;
-	if (!ft_isdigit(*s))
+	num = 0;
+	sign = -1;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		++str;
+	if (!ft_isdigit(*str))
 		return (EINVAL);
-	if (*sign == '-')
-		err = handle_negative(out, s);
-	else
-		err = handle_positive(out, s);
-	if (err)
-		return (err);
+	while (ft_isdigit(*str))
+	{
+		digit = *str - '0';
+		if (is_overflow(num, digit))
+			return (EOVERFLOW);
+		num *= 10;
+		num += sign * digit;
+		++str;
+	}
+	*out = num;
 	return (0);
 }
