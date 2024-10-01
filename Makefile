@@ -1,22 +1,25 @@
 # Directories
-SRC_DIR        := src
-ARENA_DIR      := $(SRC_DIR)/arena
-VECTOR_DIR     := $(SRC_DIR)/vector
-PRINTF_DIR     := $(SRC_DIR)/printf
+LIB_DIR        := src
+ARENA_DIR      := $(LIB_DIR)/arena
+VECTOR_DIR     := $(LIB_DIR)/vector
+PRINTF_DIR     := $(LIB_DIR)/printf
 INC_DIR        := include
 INT_DIR        := internal
 
-# Source files
-SRC_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c \
-                  ft_isdigit.c ft_isspace.c \
-                  int_to_str.c uint_to_str.c \
-                  str_to_int.c
-ARENA_FILES    := arena.c arena_str.c scratch.c
-VECTOR_FILES   := vector.c split_str.c strv_to_intv.c
+# Library files by category
+LIB_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c \
+                  ft_isdigit.c ft_isspace.c
+
+LIB_FILES      := int_parse.c int_format.c uint_format.c
+
+ARENA_FILES    := arena.c arena_str.c
+
+VECTOR_FILES   := vector.c strv_dup.c strv_ndup.c
+
 PRINTF_FILES   := ft_printf.c ft_dprintf.c ft_vdprintf.c \
                   append_chars.c append_ints.c pribuf.c
 
-SRCS           := $(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
+SRCS           := $(addprefix $(LIB_DIR)/, $(LIB_FILES)) \
                   $(addprefix $(ARENA_DIR)/, $(ARENA_FILES)) \
                   $(addprefix $(VECTOR_DIR)/, $(VECTOR_FILES)) \
                   $(addprefix $(PRINTF_DIR)/, $(PRINTF_FILES))

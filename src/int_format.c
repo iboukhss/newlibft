@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   uint_to_str.c                                      :+:      :+:    :+:   */
+/*   int_format.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 18:42:32 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/22 19:43:22 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/01 01:07:03 by marvin            #+#    #+#             */
+/*   Updated: 2024/10/01 15:04:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,46 @@
 
 #include <errno.h>
 
-static int	find_len(uintmax_t val, int base)
+// Get integer length including sign.
+static int	intlen(intmax_t val)
 {
 	int	len;
 
 	if (val == 0)
 		return (1);
 	len = 0;
+	if (val < 0)
+		++len;
 	while (val != 0)
 	{
 		++len;
-		val /= base;
+		val /= 10;
 	}
 	return (len);
 }
 
-int	uint_to_str(char *buf, uintmax_t val, int base, ptrdiff_t bufsize)
+// This function is used internally by `ft_printf()` to convert all sizes
+// of integer types, like ptrdiff_t, int64_t, int32_t ect.
+int	int_format(char *buf, intmax_t val, ptrdiff_t size)
 {
-	int		len;
-	char	*end;
+	intmax_t	oval;
+	int			len;
+	char		*end;
 
-	if (base < 2 || base > 16)
-		return (EINVAL);
-	len = find_len(val, base);
-	if (len + 1 > bufsize)
+	oval = val;
+	len = intlen(val);
+	if (size < len + 1)
 		return (EOVERFLOW);
+	if (oval > 0)
+		val = -val;
 	end = buf + len;
 	*end = '\0';
 	while (end > buf)
 	{
-		*--end = "0123456789abcdef"[val % base];
-		val /= base;
+		*--end = '0' - (val % 10);
+		val /= 10;
 	}
+	if (oval < 0)
+		*buf = '-';
 	return (0);
 }

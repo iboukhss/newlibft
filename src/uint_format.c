@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   int_to_str.c                                       :+:      :+:    :+:   */
+/*   uint_format.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 18:30:42 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/22 19:51:52 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/01 15:05:32 by marvin            #+#    #+#             */
+/*   Updated: 2024/10/01 15:06:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,39 @@
 
 #include <errno.h>
 
-static int	find_len(intmax_t val)
+static int	find_len(uintmax_t val, int base)
 {
 	int	len;
 
 	if (val == 0)
 		return (1);
 	len = 0;
-	if (val < 0)
-		++len;
 	while (val != 0)
 	{
 		++len;
-		val /= 10;
+		val /= base;
 	}
 	return (len);
 }
 
-int	int_to_str(char *buf, intmax_t val, ptrdiff_t bufsize)
+// Function used internally by `ft_printf()` for all unsigned integer types.
+// Supports bases up to 16 (arbitrary choice).
+int	uint_format(char *buf, uintmax_t val, int base, ptrdiff_t size)
 {
 	int		len;
 	char	*end;
 
-	len = find_len(val);
-	if (len + 1 > bufsize)
+	if (base < 2 || base > 16)
+		return (EINVAL);
+	len = find_len(val, base);
+	if (size < len + 1)
 		return (EOVERFLOW);
 	end = buf + len;
 	*end = '\0';
-	if (val < 0)
-		*buf++ = '-';
-	else
-		val = -val;
 	while (end > buf)
 	{
-		*--end = '0' - (val % 10);
-		val /= 10;
+		*--end = "0123456789abcdef"[val % base];
+		val /= base;
 	}
 	return (0);
 }

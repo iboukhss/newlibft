@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:20:04 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 18:30:46 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/01 23:33:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,17 @@ static int	handle_modifier(t_pribuf *pb, int mod, va_list ap)
 	else if (mod == 'u')
 		return (append_uint(pb, va_arg(ap, unsigned int)));
 	else if (mod == 'p')
-		return (append_ptr(pb, va_arg(ap, uintptr_t)));
+		return (append_hex(pb, va_arg(ap, uintptr_t)));
+	else if (mod == 'x')
+		return (append_hex(pb, va_arg(ap, unsigned int)));
+	else if (mod == 'b')
+		return (append_bin(pb, va_arg(ap, unsigned int)));
+	else if (mod == 'o')
+		return (append_oct(pb, va_arg(ap, unsigned int)));
+	else if (mod == 't')
+		return (append_pdiff(pb, va_arg(ap, ptrdiff_t)));
+	else if (mod == 'z')
+		return (append_size(pb, va_arg(ap, size_t)));
 	return (-1);
 }
 
