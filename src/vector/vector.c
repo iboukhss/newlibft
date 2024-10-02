@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:48:24 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/03 01:29:50 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/03 01:40:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	*vector_new(t_arena *a, ptrdiff_t elem_count, ptrdiff_t elem_size)
 	v = arena_alloc(a, sizeof(*v));
 	v->data = arena_alloc(a, elem_count * elem_size);
 	v->size = elem_size;
+	v->beg = 0;
+	v->end = 0;
 	v->len = 0;
 	v->cap = elem_count;
 	return (v);
