@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:14:12 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/02 00:37:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:00:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_strv	*strv_split(t_arena *a, const char *s, int delim)
 	const char	*beg;
 	char		*dup;
 
-	sv = vec_new(a, 1, sizeof(char *));
+	sv = vector_new(a, 1, sizeof(char *));
 	while (*s)
 	{
 		while (*s == delim)
@@ -29,7 +29,7 @@ t_strv	*strv_split(t_arena *a, const char *s, int delim)
 		while (*s && *s != delim)
 			++s;
 		dup = arena_strndup(a, beg, s - beg);
-		vec_push(a, sv, &dup);
+		vector_push(a, sv, &dup);
 	}
 	return (sv);
 }

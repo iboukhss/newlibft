@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 00:25:49 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/02 00:30:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:00:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	intv_parse(t_arena *a, t_intv *outv, t_strv *sv)
 	int			err;
 
 	i = 0;
-	vec_init(a, outv, sv->len, sizeof(int));
+	vector_init(a, outv, sv->len, sizeof(int));
 	while (i < sv->len)
 	{
 		err = int_parse(&num, sv->data[i]);
 		if (err)
 			return (err);
-		vec_push(a, outv, &num);
+		vector_push(a, outv, &num);
 		++i;
 	}
 	return (0);

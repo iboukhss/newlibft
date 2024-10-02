@@ -6,13 +6,12 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 02:11:07 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/30 18:22:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/02 03:33:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
 #include "libft.h"
-#include "vector.h"
 
 char	*arena_strdup(t_arena *a, const char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:19:02 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/01 13:14:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:59:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_strv	*strv_ndup(t_arena *a, char **strs, ptrdiff_t n)
 	ptrdiff_t	i;
 
 	i = 0;
-	sv = vec_new(a, n, sizeof(char *));
+	sv = vector_new(a, n, sizeof(char *));
 	while (i < n)
 	{
 		s = arena_strdup(a, strs[i]);
-		vec_push(a, sv, &s);
+		vector_push(a, sv, &s);
 		++i;
 	}
 	return (sv);
