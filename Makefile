@@ -10,11 +10,12 @@ INT_DIR        := internal
 LIB_FILES      := ft_memcpy.c ft_memset.c ft_strlen.c \
                   ft_isdigit.c ft_isspace.c
 
-LIB_FILES      := int_parse.c int_format.c uint_format.c
+LIB_FILES      += int_parse.c int_format.c uint_format.c
 
 ARENA_FILES    := arena.c arena_str.c
 
-VECTOR_FILES   := vector.c strv_dup.c strv_ndup.c
+VECTOR_FILES   := vector.c strv_dup.c strv_ndup.c \
+                  strv_split.c intv_parse.c
 
 PRINTF_FILES   := ft_printf.c ft_dprintf.c ft_vdprintf.c \
                   append_chars.c append_ints.c pribuf.c

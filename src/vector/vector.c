@@ -6,16 +6,30 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:48:24 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/24 18:18:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/02 00:33:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 #include "libft.h"
 
-void	*vector_new(t_arena *a, ptrdiff_t elem_count, ptrdiff_t elem_size)
+// Initializes a preallcated vector structure.
+void	vec_init(t_arena *a, void *vecptr, ptrdiff_t elem_count,
+			ptrdiff_t elem_size)
 {
-	t_vector	*v;
+	t_vec	*v;
+
+	v = (t_vec *)vecptr;
+	v->data = arena_alloc(a, elem_count * elem_size);
+	v->size = elem_size;
+	v->len = 0;
+	v->cap = elem_count;
+}
+
+// Returns a pointer to a newly allocated vector on the arena.
+void	*vec_new(t_arena *a, ptrdiff_t elem_count, ptrdiff_t elem_size)
+{
+	t_vec	*v;
 
 	v = arena_alloc(a, sizeof(*v));
 	v->data = arena_alloc(a, elem_count * elem_size);
@@ -25,45 +39,31 @@ void	*vector_new(t_arena *a, ptrdiff_t elem_count, ptrdiff_t elem_size)
 	return (v);
 }
 
-void	*vector_dup(t_arena *a, void *vecptr)
+// Doubles the capacity of a vector.
+// TODO: Think about ways to deal with 0 sized allocations, for now it is
+// assumed the initial allocation is greater or equal than 1.
+void	vec_grow(t_arena *a, void *vecptr)
 {
-	t_vector	*v;
-	t_vector	*dup;
-	void		*dup_data;
+	t_vec	*v;
+	void	*new_data;
 
-	v = (t_vector *)vecptr;
-	dup = arena_alloc(a, sizeof(*dup));
-	dup_data = arena_alloc(a, v->len * v->size);
-	ft_memcpy(dup_data, v->data, v->len * v->size);
-	dup->data = dup_data;
-	dup->size = v->size;
-	dup->len = v->len;
-	dup->cap = v->len;
-	return (dup);
-}
-
-// Double the size of the vector
-void	vector_grow(t_arena *a, void *vecptr)
-{
-	t_vector	*v;
-	void		*new_data;
-
-	v = (t_vector *)vecptr;
+	v = (t_vec *)vecptr;
 	new_data = arena_alloc(a, (v->cap * 2) * v->size);
 	ft_memcpy(new_data, v->data, v->len * v->size);
 	v->data = new_data;
 	v->cap = v->cap * 2;
 }
 
-void	vector_push(t_arena *a, void *vecptr, void *elem)
+// Push an element to a vector.
+void	vec_push(t_arena *a, void *vecptr, const void *elem)
 {
-	t_vector	*v;
-	char		*data;
+	t_vec	*v;
+	char	*odata;
 
-	v = (t_vector *)vecptr;
+	v = (t_vec *)vecptr;
 	if (v->len >= v->cap)
-		vector_grow(a, v);
-	data = (char *)v->data;
-	ft_memcpy(data + (v->len * v->size), elem, v->size);
+		vec_grow(a, v);
+	odata = (char *)v->data;
+	ft_memcpy(odata + (v->len * v->size), elem, v->size);
 	v->len += 1;
 }
