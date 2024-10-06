@@ -3,6 +3,7 @@ LIBFT_DIR      := src
 ARENA_DIR      := $(LIBFT_DIR)/arena
 VECTOR_DIR     := $(LIBFT_DIR)/vector
 PRINTF_DIR     := $(LIBFT_DIR)/printf
+CIRBUF_DIR     := $(LIBFT_DIR)/cirbuf
 INC_DIR        := include
 INT_DIR        := internal
 
@@ -13,23 +14,28 @@ LIBFT_FILES    := ft_memcpy.c ft_memset.c ft_strlen.c \
 
 LIBFT_FILES    += int_parse.c int_format.c uint_format.c
 
-ARENA_FILES    := arena.c arena_str.c
+ARENA_FILES    := arena.c scratch.c arena_str.c alloc.c
 
 VECTOR_FILES   := vector.c strv_dup.c strv_ndup.c \
                   strv_split.c intv_parse.c
 
 PRINTF_FILES   := ft_printf.c ft_dprintf.c ft_vdprintf.c \
-                  append_chars.c append_ints.c pribuf.c
+                  append_chars.c append_ints.c pribuf.c \
+                  ft_puts.c
+
+CIRBUF_FILES   := cirbuf.c cirbuf_ops.c cirbuf_peek.c \
+                  cirbuf_shift.c
 
 # Header files
-INC_FILES      := libft.h arena.h vector.h
+INC_FILES      := libft.h arena.h vector.h cirbuf.h
 INT_FILES      := pribuf.h
 
 # Sources list
 SRCS           := $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILES)) \
                   $(addprefix $(ARENA_DIR)/, $(ARENA_FILES)) \
                   $(addprefix $(VECTOR_DIR)/, $(VECTOR_FILES)) \
-                  $(addprefix $(PRINTF_DIR)/, $(PRINTF_FILES))
+                  $(addprefix $(PRINTF_DIR)/, $(PRINTF_FILES)) \
+                  $(addprefix $(CIRBUF_DIR)/, $(CIRBUF_FILES))
 
 # Includes list
 INCS           := $(addprefix $(INC_DIR)/, $(INC_FILES)) \

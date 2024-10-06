@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 22:12:59 by marvin            #+#    #+#             */
-/*   Updated: 2024/09/26 21:19:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/06 20:27:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_arena	*arena_new(ptrdiff_t size)
 	return (a);
 }
 
-// Allocated chunks are zeroed out by default for convenience
+// Allocated chunks are zeroed out by default for convenience.
+// Memory is aligned to 8 bytes (should be safe but not ideal).
 void	*arena_alloc(t_arena *a, ptrdiff_t size)
 {
 	ptrdiff_t	align;

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:34:25 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/02 16:09:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/04 13:15:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ ptrdiff_t	ft_strlen(const char *s);
 int			ft_printf(const char *fmt, ...);
 int			ft_dprintf(int fd, const char *fmt, ...);
 int			ft_vdprintf(int fd, const char *fmt, va_list ap);
+int			ft_puts(const char *s);
 
 void		ft_qsort(void *base, ptrdiff_t nmemb, ptrdiff_t size,
 				int (*cmp)(const void *, const void *));
