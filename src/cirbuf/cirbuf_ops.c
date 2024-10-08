@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 18:39:21 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/06 21:27:39 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/07 04:30:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	cirbuf_swap(t_alloc handle, t_cirbuf *cbuf, ptrdiff_t a, ptrdiff_t b)
 	void	*tmp_a;
 	void	*tmp_b;
 
-	if (!cirbuf_is_empty(cbuf))
+	if (!cirbuf_is_empty(cbuf) && cirbuf_at(cbuf, a) && cirbuf_at(cbuf, b))
 	{
 		tmp_a = arena_alloc(&handle.temp, cbuf->size);
 		tmp_b = arena_alloc(&handle.temp, cbuf->size);

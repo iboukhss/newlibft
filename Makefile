@@ -47,7 +47,7 @@ DEPS           := $(OBJS:.o=.d)
 
 # Build configuration
 NAME           := libft.a
-CC             := clang
+CC             := cc
 CFLAGS         := -Wall -Wextra -Werror
 CFLAGS         += -MMD -g3 -fsanitize=address,undefined
 CFLAGS         += -I$(INC_DIR) -I$(INT_DIR)

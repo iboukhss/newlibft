@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:24:48 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/06 21:36:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/08 14:30:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ void	*cirbuf_front(t_cirbuf *cbuf)
 	return (pos);
 }
 
-// We consider valid circular buffer indices the same as traditional C arrays.
-// From 0 to len - 1.
+// We can index negatively until -len + 1
 void	*cirbuf_at(t_cirbuf *cbuf, ptrdiff_t idx)
 {
 	char		*pos;
 
-	if (cirbuf_is_empty(cbuf) || idx < 0 || idx > cbuf->len - 1)
+	if (cirbuf_is_empty(cbuf) || idx < -cbuf->len + 1 || idx > cbuf->len - 1)
 		return (NULL);
-	idx = (cbuf->head + idx) % cbuf->cap;
+	idx = (cbuf->head + idx + cbuf->cap) % cbuf->cap;
 	pos = (char *)cbuf->data + (idx * cbuf->size);
 	return (pos);
 }
